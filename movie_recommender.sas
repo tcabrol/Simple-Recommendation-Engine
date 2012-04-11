@@ -39,7 +39,7 @@ proc sql ;
 quit ;
 
 ** Get correlation ;
-proc corr data=Pairs noPrint out=Recommendations (where=(_TYPE_ in ('CORR'))) spearman;
+proc corr data=Pairs noPrint out=Recommendations (where=(_TYPE_ in ('CORR'))) pearson;
   by movie_id movie_id_2 ;
   var rating  ;
   with rating_2 ;
