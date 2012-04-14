@@ -15,6 +15,14 @@ from itertools import combinations
 from collections import namedtuple, defaultdict
 
 
+def movie_name():
+	lookup = defaultdict()
+	for line in open('/Users/thomas/Documents/data/datasets/movielens/ml-100k/u.item'):
+	    record = line.strip().split('|')
+	    movie_id, movie_name = record[0], record[1]
+	    lookup[movie_id] = movie_name
+	return lookup
+	
 def ratings():
     '''
     Iterate the source file using a generator
@@ -82,10 +90,23 @@ def show_recommendations(top_n=10):
     '''
     Print the top n recommendations for each movie
     '''
+    lu = movie_name()
     for movie, correlations in recommendations().iteritems():
-        print movie, [e for i, e in enumerate(sorted(correlations.items(), key=itemgetter(1), reverse=True)) if i <= top_n-1]
+        #print movie, [e for i, e in enumerate(sorted(correlations.items(), key=itemgetter(1), reverse=True)) if i <= top_n-1]
+        for i, related_movies in enumerate(sorted(correlations.items(), key=itemgetter(1), reverse=True)):
+            if i == top_n:
+                print
+                break
+            print movie, lu[movie], i+1, related_movies[0], lu[related_movies[0]], related_movies[1]
+            '''
+            50 Star Wars (1977) 1 172 Empire Strikes Back, The (1980) 0.747981422379
+            50 Star Wars (1977) 2 181 Return of the Jedi (1983) 0.672555855888
+            50 Star Wars (1977) 3 174 Raiders of the Lost Ark (1981) 0.536117101373
+            50 Star Wars (1977) 4 1142 When We Were Kings (1996) 0.515164066819
+            50 Star Wars (1977) 5 963 Some Folks Call It a Sling Blade (1993) 0.509016159525
+            ...
+            '''
+            
 
 if __name__ == '__main__':
-    #recommendations()
     show_recommendations()
-    #coratings()    
