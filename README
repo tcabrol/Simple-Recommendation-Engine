@@ -1,0 +1,6 @@
+Supporting scripts for this blog post : http://thomascabrol.posterous.com/a-simple-recommendation-engine-implemented-in
+This is an implementation of a recommendation engine using the MovieLens dataset, in the following languages:
+  - Pig
+  - SQL
+  - SAS
+  - Python
